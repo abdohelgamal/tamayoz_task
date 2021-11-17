@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tamayoz_task/course.dart';
+import 'package:tamayoz_task/homepage.dart';
+import 'package:tamayoz_task/inteface.dart';
 import 'package:tamayoz_task/splashscreen.dart';
 
 void main() {
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
   
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen()
+      home: Course()
     );
   }
 }

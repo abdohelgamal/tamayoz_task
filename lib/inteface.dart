@@ -1,8 +1,28 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:tamayoz_task/api.dart';
 import 'package:tamayoz_task/signin.dart';
 import 'package:tamayoz_task/signup.dart';
 
-class Interface extends StatelessWidget {
+class Interface extends StatefulWidget {
+  @override
+  State<Interface> createState() => _InterfaceState();
+}
+
+class _InterfaceState extends State<Interface> {
+  @override
+  void initState() {
+    super.initState();
+    var respo = ApiFunctions.getxsfrtoken().then((res) {
+      Map data = jsonDecode(res.body);
+      print(res.headers);
+      print(res.statusCode);
+      print(data);
+      return data;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
