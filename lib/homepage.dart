@@ -1,13 +1,47 @@
+import 'dart:convert';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tamayoz_task/api.dart';
+import 'package:tamayoz_task/coursecomponent.dart';
 
 class HomePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   GlobalKey btmnavkey = GlobalKey();
+  List<Widget> freecourses = [];
+  List<Widget> mostviewed = [];
+  List<Widget> newestcourses = [];
+
+  @override
+  void initState() {
+    ApiFunctions.getCourses().then((value) {
+      List data = jsonDecode(value.body);
+      List free = [];
+      for (var element in data) {
+        if (element['type'] == 'free') {
+          free.add(element);
+        }
+      }
+      // data.sort((a, b) {
+      //   return DateTime.parse(a['created_at'].toString())
+      //       .compareTo(DateTime.parse(a['created_at']));
+      // });
+      for (var element in free) {
+        freecourses.add(Coursecomponent(element));
+      }
+      data.forEach((element) {
+        newestcourses.add(Coursecomponent(element));
+      });
+      setState(() {
+        mostviewed = newestcourses.take(10).toList();
+      });
+    });
+  }
+
   int btmnavindex = 0;
   @override
   Widget build(BuildContext context) {
@@ -26,40 +60,35 @@ class _HomePageState extends State<HomePage> {
                 Icons.home_sharp,
                 color: Colors.grey[300],
               ),
-              activeIcon: Container(
-                  child: Icon(Icons.home_sharp, color: Colors.grey[300])),
+              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
               label: ''),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_sharp,
                 color: Colors.grey[300],
               ),
-              activeIcon: Container(
-                  child: Icon(Icons.home_sharp, color: Colors.grey[300])),
+              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
               label: ''),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_sharp,
                 color: Colors.grey[300],
               ),
-              activeIcon: Container(
-                  child: Icon(Icons.home_sharp, color: Colors.grey[300])),
+              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
               label: ''),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_sharp,
                 color: Colors.grey[300],
               ),
-              activeIcon: Container(
-                  child: Icon(Icons.home_sharp, color: Colors.grey[300])),
+              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
               label: ''),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_sharp,
                 color: Colors.grey[300],
               ),
-              activeIcon: Container(
-                  child: Icon(Icons.home_sharp, color: Colors.grey[300])),
+              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
               label: ''),
         ],
         backgroundColor: Colors.blue[600],
@@ -94,13 +123,12 @@ class _HomePageState extends State<HomePage> {
             ),
             TextFormField(
               onChanged: (str) {},
-              obscureText: true,
               textDirection: TextDirection.rtl,
               decoration: InputDecoration(
                   prefixIcon: Container(
                     child: IconButton(
                       iconSize: 55,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.search,
                         color: Colors.white,
                         size: 45,
@@ -135,72 +163,18 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 20,
             ),
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.32,
               width: double.infinity,
               child: ListView(
                 reverse: true,
-                children: [
-                  GestureDetector(
-                      child: Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: MediaQuery.of(context).size.height * 0.32,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: Column(children: [
-                      Image.network(
-                        'https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg',
-                        height: 200,
-                           width: MediaQuery.of(context).size.width * 0.7,
-                        fit: BoxFit.fitWidth,
-                      ),
-                      Container(alignment: Alignment.topCenter,
-                      height: 83,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        margin: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'المساق',
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black),
-                                ),
-                                Text(
-                                  'مجانية',
-                                  style: TextStyle(
-                                      color: Colors.orange, fontSize: 20),
-                                )
-                              ],
-                            ),
-                            Row(textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'المساق',
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black),
-                                ),
-                                Text(
-                                  'مجانية',
-                                  style: TextStyle(color: Colors.orange,fontSize: 20),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ]),
-                  ))
-                ],
+                children: mostviewed.isEmpty
+                    ? [
+                        CircularProgressIndicator(
+                          color: Colors.red,
+                        )
+                      ]
+                    : mostviewed,
                 scrollDirection: Axis.horizontal,
               ),
             ),
@@ -214,11 +188,17 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 20,
             ),
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
               width: double.infinity,
-              child: ListView(
-                children: [],
+              child: ListView(reverse: true,
+                children: freecourses.isEmpty
+                    ? [
+                        CircularProgressIndicator(
+                          color: Colors.red,
+                        )
+                      ]
+                    : freecourses,
                 scrollDirection: Axis.horizontal,
               ),
             ),
@@ -232,11 +212,17 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 20,
             ),
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
-              width: double.infinity,
-              child: ListView(
-                children: [],
+              width: MediaQuery.of(context).size.width,
+              child: ListView(shrinkWrap: true,reverse: true,
+                children: newestcourses.isEmpty
+                    ? [
+                        CircularProgressIndicator(strokeWidth: 8,
+                          color: Colors.red,
+                        )
+                      ]
+                    : newestcourses,
                 scrollDirection: Axis.horizontal,
               ),
             ),

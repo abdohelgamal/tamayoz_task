@@ -1,14 +1,34 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:tamayoz_task/api.dart';
 import 'package:tamayoz_task/lessons.dart';
 import 'dart:math' as math;
 
-class Course extends StatelessWidget {
+class Course extends StatefulWidget {
+Course(this.id);
+int id ;
+
+  @override
+  State<Course> createState() => _CourseState();
+}
+
+class _CourseState extends State<Course> {
+  @override
+  void initState() {
+    super.initState();
+    ApiFunctions.getCourse(1).then((value) {
+     List  data = jsonDecode(value.body);
+     print(data[1]);
+      print(data[1].keys);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: Container(
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
                 color: Colors.grey,
                 blurRadius: 5,
@@ -86,8 +106,8 @@ class Course extends StatelessWidget {
                       ),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          'https://www.aljadeed.com/wp-content/uploads/2021/03/Image-Compressor-Online-%D9%85%D9%88%D9%82%D8%B9-%D9%84%D8%AE%D9%81%D8%B6-%D8%AD%D8%AC%D9%85-%D8%A7%D9%84%D8%B5%D9%88%D8%B1-%D8%A7%D9%88%D9%86-%D9%84%D8%A7%D9%8A%D9%86-%D8%A8%D8%AF%D9%88%D9%86-%D8%AA%D9%82%D9%84%D9%8A%D9%84-%D8%A7%D9%84%D8%AC%D9%88%D8%AF%D8%A9.jpg',
+                        child: Image.asset(
+           'assets/courseimage.jpg',
                           height: MediaQuery.of(context).size.height * 0.3,
                           width: MediaQuery.of(context).size.width * 0.9,
                           fit: BoxFit.cover,
@@ -115,7 +135,7 @@ class Course extends StatelessWidget {
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: [
+                                children: const [
                                   Text(
                                     'مجاني',
                                     style: TextStyle(
@@ -141,7 +161,7 @@ class Course extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text(
+                                      const Text(
                                         '3 ساعات',
                                         style: TextStyle(
                                             fontSize: 20,
@@ -171,7 +191,7 @@ class Course extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text(
+                                      const Text(
                                         '20 درس',
                                         textDirection: TextDirection.rtl,
                                         style: TextStyle(
@@ -193,12 +213,12 @@ class Course extends StatelessWidget {
                               ),
                             ],
                           )),
-                      Text(
+                      const Text(
                         'عن المساق',
                         style: TextStyle(
                             fontSize: 35, fontWeight: FontWeight.w700),
                       ),
-                      Text(
+                      const Text(
                         'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق',
                         textAlign: TextAlign.right,
                         textDirection: TextDirection.rtl,
