@@ -5,23 +5,30 @@ import 'package:tamayoz_task/lessons.dart';
 import 'dart:math' as math;
 
 class Course extends StatefulWidget {
-Course(this.id);
-int id ;
+  Course(this.id);
+  int id;
 
   @override
   State<Course> createState() => _CourseState();
 }
 
 class _CourseState extends State<Course> {
+ late  int index ;
+  
+  List data = [];
+  late String x = '';
   @override
   void initState() {
     super.initState();
-    ApiFunctions.getCourse(1).then((value) {
-     List  data = jsonDecode(value.body);
-     print(data[1]);
-      print(data[1].keys);
+    ApiFunctions.getCourse(widget.id).then((value) {
+     
+      setState(() {
+        data = jsonDecode(value.body);
+    index    = data.indexWhere((element){
+  return   element['id'] == widget.id;
+      });
     });
-  }
+  });}
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +55,7 @@ class _CourseState extends State<Course> {
                   ))),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (c) => CourseLessons()));
+                    MaterialPageRoute(builder: (c) => CourseLessons(data[index]['lessons'],data[index]['title'])));
               },
               child: const Text('التسجيل في المساق',
                   style: TextStyle(
@@ -57,7 +64,7 @@ class _CourseState extends State<Course> {
                       fontWeight: FontWeight.w600))),
         ),
         body: SafeArea(
-            child: SingleChildScrollView(
+            child: data.isEmpty ? Center(child: CircularProgressIndicator()) : SingleChildScrollView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                 child: Column(
@@ -72,8 +79,8 @@ class _CourseState extends State<Course> {
                           children: [
                             Row(
                               children: [
-                                const Text(
-                                  'المساق',
+                                 Text(
+                                  data[index]['title'],
                                   style: TextStyle(
                                       fontSize: 35,
                                       fontWeight: FontWeight.w600),
@@ -107,7 +114,7 @@ class _CourseState extends State<Course> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
-           'assets/courseimage.jpg',
+                          'assets/courseimage.jpg',
                           height: MediaQuery.of(context).size.height * 0.3,
                           width: MediaQuery.of(context).size.width * 0.9,
                           fit: BoxFit.cover,
@@ -135,8 +142,8 @@ class _CourseState extends State<Course> {
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text(
+                                children:  [
+                            const      Text(
                                     'مجاني',
                                     style: TextStyle(
                                         fontSize: 25,
@@ -144,8 +151,8 @@ class _CourseState extends State<Course> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'المساق',
-                                    style: TextStyle(
+                                      data[index]['title'],
+                                    style: const TextStyle(
                                         fontSize: 30,
                                         color: Colors.black,
                                         fontWeight: FontWeight.w700),
@@ -161,8 +168,8 @@ class _CourseState extends State<Course> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      const Text(
-                                        '3 ساعات',
+                                       Text(
+                                        '${data[index]['duration']} ساعات',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: Colors.grey,
@@ -191,8 +198,8 @@ class _CourseState extends State<Course> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      const Text(
-                                        '20 درس',
+                                       Text(
+                                        '${data[index]['lessons'].length} درس',
                                         textDirection: TextDirection.rtl,
                                         style: TextStyle(
                                             fontSize: 20,
@@ -218,10 +225,8 @@ class _CourseState extends State<Course> {
                         style: TextStyle(
                             fontSize: 35, fontWeight: FontWeight.w700),
                       ),
-                      const Text(
-                        'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق',
-                        textAlign: TextAlign.right,
-                        textDirection: TextDirection.rtl,
+                      Text(
+                        data[index]['description'],
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w700),
                       ),

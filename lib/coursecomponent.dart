@@ -5,7 +5,7 @@ import 'package:tamayoz_task/course.dart';
 
 class Coursecomponent extends StatelessWidget {
   Coursecomponent(this.element);
-
+//TODO: fix overflow
   var element;
   @override
   Widget build(BuildContext context) {

@@ -37,11 +37,12 @@ class _HomePageState extends State<HomePage> {
         newestcourses.add(Coursecomponent(element));
       });
       setState(() {
-        mostviewed = newestcourses.take(10).toList();
+        mostviewed = newestcourses.take(6).toList();
       });
     });
   }
 
+//TODO: fix bottomnavbar
   int btmnavindex = 0;
   @override
   Widget build(BuildContext context) {
@@ -164,17 +165,19 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.32,
+              height: MediaQuery.of(context).size.height * 0.27,
               width: double.infinity,
-              child: ListView(
-                reverse: true,
-                children: mostviewed.isEmpty
-                    ? [
-                        CircularProgressIndicator(
-                          color: Colors.red,
+              child: mostviewed.isEmpty
+                    ? 
+                        Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.red,
+                          ),
                         )
-                      ]
-                    : mostviewed,
+                      
+                    : ListView(
+                reverse: true,
+                children:  mostviewed,
                 scrollDirection: Axis.horizontal,
               ),
             ),
@@ -189,16 +192,19 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.27,
               width: double.infinity,
-              child: ListView(reverse: true,
-                children: freecourses.isEmpty
-                    ? [
-                        CircularProgressIndicator(
-                          color: Colors.red,
+              child: freecourses.isEmpty
+                    ? 
+                        Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.red,
+                          ),
                         )
-                      ]
-                    : freecourses,
+                      
+                    : ListView(
+                reverse: true,
+                children: freecourses,
                 scrollDirection: Axis.horizontal,
               ),
             ),
@@ -213,16 +219,20 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.27,
               width: MediaQuery.of(context).size.width,
-              child: ListView(shrinkWrap: true,reverse: true,
-                children: newestcourses.isEmpty
-                    ? [
-                        CircularProgressIndicator(strokeWidth: 8,
-                          color: Colors.red,
+              child: newestcourses.isEmpty
+                    ? 
+                        Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.red,
+                          ),
                         )
-                      ]
-                    : newestcourses,
+                      
+                    : ListView(
+                shrinkWrap: true,
+                reverse: true,
+                children:  newestcourses,
                 scrollDirection: Axis.horizontal,
               ),
             ),
