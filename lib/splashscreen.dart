@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tamayoz_task/inteface.dart';
 
 class SplashScreen extends StatefulWidget {
- 
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }

@@ -182,9 +182,7 @@ class _SignupState extends State<Signup> {
                                     style: TextStyle(fontSize: 25),
                                   ));
                             });
-                      }else{
-
-                      }
+                      } else {}
                     },
                     child: const Text('إنشاء حساب',
                         style: TextStyle(

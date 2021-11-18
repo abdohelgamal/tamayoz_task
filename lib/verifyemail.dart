@@ -41,14 +41,15 @@ class Verifyemail extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      Container(padding: const EdgeInsets.all(35),
+                      Container(
+                        padding: const EdgeInsets.all(35),
                         height: MediaQuery.of(context).size.height * 0.2,
                         width: MediaQuery.of(context).size.height * 0.2,
                         color: Colors.blue[50],
                         child: Image.asset(
-                          'assets/email.png',color: Colors.blue,
+                          'assets/email.png',
+                          color: Colors.blue,
                           fit: BoxFit.scaleDown,
-                        
                         ),
                       ),
                       const Spacer(),
@@ -71,13 +72,20 @@ class Verifyemail extends StatelessWidget {
                                 MediaQuery.of(context).size.width,
                                 70,
                               ))),
-                          onPressed: () {Navigator.pushReplacement(context,MaterialPageRoute(builder: (_) => Resetpassword()));},
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => Resetpassword()));
+                          },
                           child: const Text('الانتقال إلى بريدك',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
                                   fontWeight: FontWeight.w600))),
-                      const Spacer(flex: 4,)
+                      const Spacer(
+                        flex: 4,
+                      )
                     ]))));
   }
 }

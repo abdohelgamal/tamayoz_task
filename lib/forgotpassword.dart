@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tamayoz_task/verifyemail.dart';
 
 class Forgotpass extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,14 +83,15 @@ class Forgotpass extends StatelessWidget {
                   style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
-                      backgroundColor: MaterialStateProperty.all(Colors.blue[400]),
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.blue[400]),
                       fixedSize: MaterialStateProperty.all(Size(
                         MediaQuery.of(context).size.width,
                         70,
                       ))),
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) =>  Verifyemail()));
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => Verifyemail()));
                   },
                   child: const Text('متابعة',
                       style: TextStyle(

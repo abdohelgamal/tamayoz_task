@@ -14,7 +14,8 @@ class Coursecomponent extends StatelessWidget {
           Navigator.push(context,
               MaterialPageRoute(builder: (_) => Course(element['id'])));
         },
-        child: Container(margin: const EdgeInsets.symmetric(horizontal: 20),
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           width: MediaQuery.of(context).size.width * 0.7,
           height: MediaQuery.of(context).size.height * 0.32,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
@@ -37,7 +38,9 @@ class Coursecomponent extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2)],
+                    boxShadow: const [
+                      BoxShadow(color: Colors.grey, blurRadius: 2)
+                    ],
                     borderRadius: BorderRadius.circular(10)),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.2,
@@ -51,7 +54,7 @@ class Coursecomponent extends StatelessWidget {
                         children: [
                           Text(
                             element['title'].toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black),
@@ -60,8 +63,8 @@ class Coursecomponent extends StatelessWidget {
                             element['type'].toString() == 'paid'
                                 ? '\$20'
                                 : 'مجانية',
-                            style:
-                                TextStyle(color: Colors.orange, fontSize: 20),
+                            style: const TextStyle(
+                                color: Colors.orange, fontSize: 20),
                           )
                         ],
                       ),
@@ -74,7 +77,7 @@ class Coursecomponent extends StatelessWidget {
                             children: [
                               Text(
                                 '${element['duration'].toString()} ساعات',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.grey,
                                     fontWeight: FontWeight.bold),

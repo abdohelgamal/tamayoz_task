@@ -13,22 +13,22 @@ class Course extends StatefulWidget {
 }
 
 class _CourseState extends State<Course> {
- late  int index ;
-  
+  late int index;
+
   List data = [];
   late String x = '';
   @override
   void initState() {
     super.initState();
     ApiFunctions.getCourse(widget.id).then((value) {
-     
       setState(() {
         data = jsonDecode(value.body);
-    index    = data.indexWhere((element){
-  return   element['id'] == widget.id;
+        index = data.indexWhere((element) {
+          return element['id'] == widget.id;
+        });
       });
     });
-  });}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +54,11 @@ class _CourseState extends State<Course> {
                     70,
                   ))),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (c) => CourseLessons(data[index]['lessons'],data[index]['title'])));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (c) => CourseLessons(
+                            data[index]['lessons'], data[index]['title'])));
               },
               child: const Text('التسجيل في المساق',
                   style: TextStyle(
@@ -64,172 +67,181 @@ class _CourseState extends State<Course> {
                       fontWeight: FontWeight.w600))),
         ),
         body: SafeArea(
-            child: data.isEmpty ? Center(child: CircularProgressIndicator()) : SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    textDirection: TextDirection.rtl,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 30, top: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          textDirection: TextDirection.rtl,
-                          children: [
-                            Row(
+            child: data.isEmpty
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    color: Colors.red,
+                  ))
+                : SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 20),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        textDirection: TextDirection.rtl,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 30, top: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              textDirection: TextDirection.rtl,
                               children: [
-                                 Text(
-                                  data[index]['title'],
-                                  style: TextStyle(
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w600),
+                                Row(
+                                  children: [
+                                    Text(
+                                      data[index]['title'],
+                                      style: const TextStyle(
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 40),
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue[50],
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      child: IconButton(
+                                          iconSize: 25,
+                                          color: Colors.blue,
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: const Icon(Icons.east)),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 40),
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: IconButton(
-                                      iconSize: 25,
+                                IconButton(
+                                    iconSize: 35,
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.bookmark_border,
                                       color: Colors.blue,
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: const Icon(Icons.east)),
-                                ),
+                                    ))
                               ],
                             ),
-                            IconButton(
-                                iconSize: 35,
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.bookmark_border,
-                                  color: Colors.blue,
-                                ))
-                          ],
-                        ),
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/courseimage.jpg',
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Container(
-                          margin: const EdgeInsets.symmetric(vertical: 20),
-                          padding: const EdgeInsets.all(20),
-                          height: MediaQuery.of(context).size.height * 0.15,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade200,
-                                spreadRadius: 1.5,
-                                blurRadius: 8.0,
-                              ),
-                            ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children:  [
-                            const      Text(
-                                    'مجاني',
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        color: Colors.orange,
-                                        fontWeight: FontWeight.bold),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              'assets/courseimage.jpg',
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Container(
+                              margin: const EdgeInsets.symmetric(vertical: 20),
+                              padding: const EdgeInsets.all(20),
+                              height: MediaQuery.of(context).size.height * 0.15,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade200,
+                                    spreadRadius: 1.5,
+                                    blurRadius: 8.0,
                                   ),
-                                  Text(
-                                      data[index]['title'],
-                                    style: const TextStyle(
-                                        fontSize: 30,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700),
-                                  )
                                 ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              Row(
-                                textDirection: TextDirection.rtl,
+                              child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                       Text(
-                                        '${data[index]['duration']} ساعات',
+                                      const Text(
+                                        'مجاني',
                                         style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.grey,
+                                            fontSize: 25,
+                                            color: Colors.orange,
                                             fontWeight: FontWeight.bold),
-                                        textDirection: TextDirection.rtl,
                                       ),
-                                      Transform(
-                                        alignment: Alignment.center,
-                                        transform: Matrix4.rotationY(math.pi),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.orange,
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          margin: const EdgeInsets.all(8.0),
-                                          child: Image.asset(
-                                            'assets/9oclock.png',
-                                            color: Colors.white,
-                                            height: 25,
-                                          ),
-                                        ),
-                                      ),
+                                      Text(
+                                        data[index]['title'],
+                                        style: const TextStyle(
+                                            fontSize: 30,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700),
+                                      )
                                     ],
                                   ),
                                   Row(
+                                    textDirection: TextDirection.rtl,
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                       Text(
-                                        '${data[index]['lessons'].length} درس',
-                                        textDirection: TextDirection.rtl,
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            '${data[index]['duration']} ساعات',
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold),
+                                            textDirection: TextDirection.rtl,
+                                          ),
+                                          Transform(
+                                            alignment: Alignment.center,
+                                            transform:
+                                                Matrix4.rotationY(math.pi),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.orange,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              margin: const EdgeInsets.all(8.0),
+                                              child: Image.asset(
+                                                'assets/9oclock.png',
+                                                color: Colors.white,
+                                                height: 25,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          'assets/ondemandvideo.png',
-                                          color: Colors.orange,
-                                          height: 20,
-                                        ),
-                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            '${data[index]['lessons'].length} درس',
+                                            textDirection: TextDirection.rtl,
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Image.asset(
+                                              'assets/ondemandvideo.png',
+                                              color: Colors.orange,
+                                              height: 20,
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                     ],
-                                  )
+                                  ),
                                 ],
-                              ),
-                            ],
-                          )),
-                      const Text(
-                        'عن المساق',
-                        style: TextStyle(
-                            fontSize: 35, fontWeight: FontWeight.w700),
-                      ),
-                      Text(
-                        data[index]['description'],
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.w700),
-                      ),
-                    ]))));
+                              )),
+                          const Text(
+                            'عن المساق',
+                            style: TextStyle(
+                                fontSize: 35, fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            data[index]['description'],
+                            style: const TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w700),
+                          ),
+                        ]))));
   }
 }

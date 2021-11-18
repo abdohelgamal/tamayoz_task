@@ -5,19 +5,17 @@ import 'package:tamayoz_task/inteface.dart';
 import 'package:tamayoz_task/splashscreen.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-  
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage()
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: HomePage());
   }
 }

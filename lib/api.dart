@@ -30,8 +30,7 @@ class ApiFunctions {
     return await http.get(_api(url: '/course/$id'), headers: _headers);
   }
 
- static Future<http.Response> getLesson(int id) async {
+  static Future<http.Response> getLesson(int id) async {
     return await http.get(_api(url: '/lesson/$id'), headers: _headers);
   }
-
 }

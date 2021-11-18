@@ -6,28 +6,25 @@ import 'package:tamayoz_task/api.dart';
 import 'package:tamayoz_task/lessoncomponent.dart';
 import 'package:tamayoz_task/questions.dart';
 
-class CourseLessons extends StatefulWidget{
+class CourseLessons extends StatefulWidget {
+  CourseLessons(this.lessons, this.title);
+  List lessons;
+  String title;
 
-  CourseLessons(this.lessons,this.title);
-  List lessons ;
- String title;
-  
   @override
   State<CourseLessons> createState() => _CourseLessonsState();
 }
 
 class _CourseLessonsState extends State<CourseLessons> {
-
-
   int currentpage = 1;
-@override
+  List<Widget> lessonsliswidget = [];
+  @override
   void initState() {
     super.initState();
-    print(widget.lessons);
-// ApiFunctions.getLesson(int.parse(widget.lessons[0]['id'])).then((res) {
-//   var data = jsonDecode(res.body);
-}
-  
+    lessonsliswidget =
+        widget.lessons.map((lesson) => LessonButton(lesson['title'])).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +50,7 @@ class _CourseLessonsState extends State<CourseLessons> {
                           MediaQuery.of(context).size.width * 0.85,
                           70,
                         ))),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     child: const Text('اترك سؤال',
                         style: TextStyle(
                             color: Colors.white,
@@ -81,9 +77,9 @@ class _CourseLessonsState extends State<CourseLessons> {
                         children: [
                           Row(
                             children: [
-                               Text(
+                              Text(
                                 widget.title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 35, fontWeight: FontWeight.w600),
                               ),
                               Container(
@@ -132,14 +128,17 @@ class _CourseLessonsState extends State<CourseLessons> {
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [//TODO: fix stack image position
-                        SizedBox(height: MediaQuery.of(context).size.width * 9/16,
-                            child: Stack(alignment: Alignment.bottomCenter,
-                            
+                      children: [
+                        //TODO: fix stack image position
+                        SizedBox(
+                            height: MediaQuery.of(context).size.width * 9 / 16,
+                            child: Stack(
+                              alignment: Alignment.bottomCenter,
                               children: [
                                 SizedBox.expand(
-                                  child: Image.asset('assets/courseimage.jpg',
-                                     fit: BoxFit.cover,
+                                  child: Image.asset(
+                                    'assets/courseimage.jpg',
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                                 Center(
@@ -192,16 +191,14 @@ class _CourseLessonsState extends State<CourseLessons> {
                             size: Size(MediaQuery.of(context).size.width,
                                 MediaQuery.of(context).size.shortestSide),
                             child: TabBarView(children: [
-                           Questionscomponent(),
+                              Questionscomponent(),
                               Container(
                                 alignment: Alignment.topCenter,
                                 height: 60,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 20),
                                 width: MediaQuery.of(context).size.width * 0.95,
-                                child: ListView(
-                                  children: [LessonButton()]
-                                ),
+                                child: ListView(children: lessonsliswidget),
                               ),
                             ]))
                       ],

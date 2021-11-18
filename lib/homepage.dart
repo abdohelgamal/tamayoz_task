@@ -168,18 +168,16 @@ class _HomePageState extends State<HomePage> {
               height: MediaQuery.of(context).size.height * 0.27,
               width: double.infinity,
               child: mostviewed.isEmpty
-                    ? 
-                        Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.red,
-                          ),
-                        )
-                      
-                    : ListView(
-                reverse: true,
-                children:  mostviewed,
-                scrollDirection: Axis.horizontal,
-              ),
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.red,
+                      ),
+                    )
+                  : ListView(
+                      reverse: true,
+                      children: mostviewed,
+                      scrollDirection: Axis.horizontal,
+                    ),
             ),
             const SizedBox(
               height: 20,
@@ -195,18 +193,16 @@ class _HomePageState extends State<HomePage> {
               height: MediaQuery.of(context).size.height * 0.27,
               width: double.infinity,
               child: freecourses.isEmpty
-                    ? 
-                        Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.red,
-                          ),
-                        )
-                      
-                    : ListView(
-                reverse: true,
-                children: freecourses,
-                scrollDirection: Axis.horizontal,
-              ),
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.red,
+                      ),
+                    )
+                  : ListView(
+                      reverse: true,
+                      children: freecourses,
+                      scrollDirection: Axis.horizontal,
+                    ),
             ),
             const SizedBox(
               height: 20,
@@ -222,19 +218,17 @@ class _HomePageState extends State<HomePage> {
               height: MediaQuery.of(context).size.height * 0.27,
               width: MediaQuery.of(context).size.width,
               child: newestcourses.isEmpty
-                    ? 
-                        Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.red,
-                          ),
-                        )
-                      
-                    : ListView(
-                shrinkWrap: true,
-                reverse: true,
-                children:  newestcourses,
-                scrollDirection: Axis.horizontal,
-              ),
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.red,
+                      ),
+                    )
+                  : ListView(
+                      shrinkWrap: true,
+                      reverse: true,
+                      children: newestcourses,
+                      scrollDirection: Axis.horizontal,
+                    ),
             ),
           ],
         ),
