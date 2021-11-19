@@ -5,7 +5,7 @@ import 'package:tamayoz_task/course.dart';
 
 class Coursecomponent extends StatelessWidget {
   Coursecomponent(this.element);
-//TODO: fix overflow
+
   var element;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class Coursecomponent extends StatelessWidget {
               top: 150,
               child: Container(
                 alignment: Alignment.topCenter,
-                height: 83,
+              
                 width: MediaQuery.of(context).size.width * 0.7,
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
@@ -42,89 +42,86 @@ class Coursecomponent extends StatelessWidget {
                       BoxShadow(color: Colors.grey, blurRadius: 2)
                     ],
                     borderRadius: BorderRadius.circular(10)),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        textDirection: TextDirection.rtl,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            element['title'].toString(),
-                            style: const TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            element['type'].toString() == 'paid'
-                                ? '\$20'
-                                : 'مجانية',
-                            style: const TextStyle(
-                                color: Colors.orange, fontSize: 20),
-                          )
-                        ],
-                      ),
-                      Row(
-                        textDirection: TextDirection.rtl,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                '${element['duration'].toString()} ساعات',
-                                style: const TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold),
-                                textDirection: TextDirection.rtl,
-                              ),
-                              Transform(
-                                alignment: Alignment.center,
-                                transform: Matrix4.rotationY(math.pi),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.orange,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  margin: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'assets/9oclock.png',
-                                    color: Colors.white,
-                                    height: 25,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              const Text(
-                                '20 درس',
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          element['title'].toString(),
+                          style: const TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black),
+                        ),
+                        Text(
+                          element['type'].toString() == 'paid'
+                              ? '\$20'
+                              : 'مجانية',
+                          style: const TextStyle(
+                              color: Colors.orange, fontSize: 20),
+                        )
+                      ],
+                    ),
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              '${element['duration'].toString()} ساعات',
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
+                              textDirection: TextDirection.rtl,
+                            ),
+                            Transform(
+                              alignment: Alignment.center,
+                              transform: Matrix4.rotationY(math.pi),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.orange,
+                                    borderRadius: BorderRadius.circular(20)),
+                                margin: const EdgeInsets.all(8.0),
                                 child: Image.asset(
-                                  'assets/ondemandvideo.png',
-                                  color: Colors.orange,
-                                  height: 20,
+                                  'assets/9oclock.png',
+                                  color: Colors.white,
+                                  height: 25,
                                 ),
                               ),
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const Text(
+                              '20 درس', //TODO: 20 lessons because endpoint has no lessons key and to show lessons I will have to request another endpoint for each component and this will heavely slow down the app
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                'assets/ondemandvideo.png',
+                                color: Colors.orange,
+                                height: 20,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
                 ),
               ),
             )

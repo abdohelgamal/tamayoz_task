@@ -16,10 +16,70 @@ class _HomePageState extends State<HomePage> {
   List<Widget> mostviewed = [];
   List<Widget> newestcourses = [];
 
+  List<BottomNavigationBarItem> btmitems = [  BottomNavigationBarItem(
+              icon: Container(  margin: const EdgeInsets.only(top:5,right: 15,left: 15),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),),
+                padding: const EdgeInsets.all(15),
+                child: Icon(
+                  Icons.person,
+                  color: Colors.grey[300],size: 30,
+                ),
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Container( margin: const EdgeInsets.only(top:5,right: 15,left: 15),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5), ),
+                padding: const EdgeInsets.all(15),
+                child: Icon(
+                  Icons.bookmark,size: 30,
+                  color: Colors.grey[300],
+                ),
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Container(margin: const EdgeInsets.only(top:5,right: 15,left: 15),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),  ),
+                padding: const EdgeInsets.all(15),
+                child: Image.asset(
+                  'assets/award.png',
+                  height: 30,
+                  color: Colors.grey[300],
+                ),
+              ),
+              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Container(margin: const EdgeInsets.only(top:5,right: 15,left: 15),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5) ),
+                padding: const EdgeInsets.all(15),
+                child: Image.asset(
+                  'assets/openbook.png',
+                  height: 30,
+                  color: Colors.grey[300],
+                ),
+              ),
+              label: ''),
+        BottomNavigationBarItem(
+              icon: Container(  margin: const EdgeInsets.only(top:5,right: 15,left: 15),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5), color: Colors.blue),
+                padding: const EdgeInsets.all(15),
+                child: Icon(
+                  Icons.home_sharp,
+                  color: Colors.grey[300],size: 30,
+                ),
+              ),
+              label: ''),];
+
   @override
   void initState() {
     ApiFunctions.getCourses().then((value) {
       List data = jsonDecode(value.body);
+    
       List free = [];
       for (var element in data) {
         if (element['type'] == 'free') {
@@ -42,12 +102,17 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-//TODO: fix bottomnavbar
-  int btmnavindex = 0;
+  int btmnavindex = 4;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+ 
+        type: BottomNavigationBarType.fixed,
+        elevation: 15, iconSize: 25,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.blue[600],
+        showSelectedLabels: true,
         onTap: (index) {
           setState(() {
             btmnavindex = index;
@@ -55,47 +120,8 @@ class _HomePageState extends State<HomePage> {
         },
         key: btmnavkey,
         currentIndex: btmnavindex,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_sharp,
-                color: Colors.grey[300],
-              ),
-              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_sharp,
-                color: Colors.grey[300],
-              ),
-              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_sharp,
-                color: Colors.grey[300],
-              ),
-              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_sharp,
-                color: Colors.grey[300],
-              ),
-              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_sharp,
-                color: Colors.grey[300],
-              ),
-              activeIcon: Icon(Icons.home_sharp, color: Colors.grey[300]),
-              label: ''),
-        ],
-        backgroundColor: Colors.blue[600],
-        unselectedItemColor: Colors.blue[600],
-        fixedColor: Colors.blue[600],
-        showSelectedLabels: true,
+        items: btmitems
+        ,
       ),
       body: SafeArea(
           child: SingleChildScrollView(

@@ -13,20 +13,21 @@ class Course extends StatefulWidget {
 }
 
 class _CourseState extends State<Course> {
-  late int index;
-
-  List data = [];
+  // late int index;
+  Map data = {};
   late String x = '';
   @override
   void initState() {
     super.initState();
     ApiFunctions.getCourse(widget.id).then((value) {
+    
       setState(() {
         data = jsonDecode(value.body);
-        index = data.indexWhere((element) {
-          return element['id'] == widget.id;
-        });
-      });
+
+        // index = data.indexWhere((element) {
+        //   return element['id'] == widget.id;
+        // });
+     });
     });
   }
 
@@ -58,7 +59,7 @@ class _CourseState extends State<Course> {
                     context,
                     MaterialPageRoute(
                         builder: (c) => CourseLessons(
-                            data[index]['lessons'], data[index]['title'])));
+                            data['lessons'], data['course']['title'])));
               },
               child: const Text('التسجيل في المساق',
                   style: TextStyle(
@@ -88,7 +89,7 @@ class _CourseState extends State<Course> {
                                 Row(
                                   children: [
                                     Text(
-                                      data[index]['title'],
+                                      data['course']['title'],
                                       style: const TextStyle(
                                           fontSize: 35,
                                           fontWeight: FontWeight.w600),
@@ -153,15 +154,17 @@ class _CourseState extends State<Course> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text(
-                                        'مجاني',
-                                        style: TextStyle(
+                                       Text(
+                                        data['course']['type'].toString() == 'paid'
+                                ? '\$20'
+                                : 'مجانية',
+                                        style: const TextStyle(
                                             fontSize: 25,
                                             color: Colors.orange,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        data[index]['title'],
+                                        data['course']['title'],
                                         style: const TextStyle(
                                             fontSize: 30,
                                             color: Colors.black,
@@ -179,7 +182,7 @@ class _CourseState extends State<Course> {
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Text(
-                                            '${data[index]['duration']} ساعات',
+                                            '${data['course']['duration']} ساعات',
                                             style: const TextStyle(
                                                 fontSize: 20,
                                                 color: Colors.grey,
@@ -211,7 +214,7 @@ class _CourseState extends State<Course> {
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Text(
-                                            '${data[index]['lessons'].length} درس',
+                                            '${data['lessons'].length} درس',
                                             textDirection: TextDirection.rtl,
                                             style: const TextStyle(
                                                 fontSize: 20,
@@ -238,7 +241,7 @@ class _CourseState extends State<Course> {
                                 fontSize: 35, fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            data[index]['description'],
+                            data['course']['description'],
                             style: const TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.w700),
                           ),

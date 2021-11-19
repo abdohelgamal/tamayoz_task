@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tamayoz_task/api.dart';
@@ -22,7 +21,8 @@ class _CourseLessonsState extends State<CourseLessons> {
   void initState() {
     super.initState();
     lessonsliswidget =
-        widget.lessons.map((lesson) => LessonButton(lesson['title'])).toList();
+        widget.lessons.map((lesson) => LessonButton(lesson['title'],lesson['id'],)).toList();
+        
   }
 
   @override
@@ -129,7 +129,7 @@ class _CourseLessonsState extends State<CourseLessons> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        //TODO: fix stack image position
+                        
                         SizedBox(
                             height: MediaQuery.of(context).size.width * 9 / 16,
                             child: Stack(

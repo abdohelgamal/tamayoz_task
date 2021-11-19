@@ -4,8 +4,8 @@ import 'package:tamayoz_task/api.dart';
 
 class LessonButton extends StatefulWidget {
   String title;
-
-  LessonButton(this.title);
+  int id;
+  LessonButton(this.title, this.id);
 
   @override
   State<LessonButton> createState() => _LessonButtonState();
