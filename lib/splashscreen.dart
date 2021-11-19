@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamayoz_task/homepage.dart';
 import 'package:tamayoz_task/inteface.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => Interface()));
+          context, MaterialPageRoute(builder: (_) => HomePage()));
     });
   }
 

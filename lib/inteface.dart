@@ -15,7 +15,7 @@ class _InterfaceState extends State<Interface> {
   void initState() {
     super.initState();
     var respo = ApiFunctions.getxsfrtoken().then((res) {
-      Map data = jsonDecode(res.body);
+      var data = jsonDecode(res.body);
       print(res.headers);
       print(res.statusCode);
       print(data);

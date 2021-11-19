@@ -78,18 +78,18 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     ApiFunctions.getCourses().then((value) {
-      List data = jsonDecode(value.body);
-    
+      var data = jsonDecode(value.body);
+    print(data);
       List free = [];
-      for (var element in data) {
-        if (element['type'] == 'free') {
-          free.add(element);
+     data.forEach(( value) {
+        if (value['type'] == 'free') {
+          free.add(value);
         }
-      }
-      // data.sort((a, b) {
-      //   return DateTime.parse(a['created_at'].toString())
-      //       .compareTo(DateTime.parse(a['created_at']));
-      // });
+      });
+    //   // data.sort((a, b) {
+    //   //   return DateTime.parse(a['created_at'].toString())
+    //   //       .compareTo(DateTime.parse(a['created_at']));
+    //   // });
       for (var element in free) {
         freecourses.add(Coursecomponent(element));
       }

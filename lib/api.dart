@@ -11,7 +11,7 @@ class ApiFunctions {
     return Uri.parse('https://auth.tamayyuzcenter.com/api$url');
   }
 
-  static getxsfrtoken() async {
+  static Future<http.Response> getxsfrtoken() async {
     return await http.get(
         Uri.parse('https://auth.tamayyuzcenter.com/sanctum/csrf-cookie'),
         headers: _headers);
